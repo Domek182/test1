@@ -1,0 +1,4 @@
+#ignore all files in any directory named setup
+setup/
+#ignore the secret.txt file
+secret.txt
