@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1701783889 source:c:\users\student\documents\pd\podstawy programowania\lista4 zad4\trojkat.cpp
+	"trojkat.h"
+
+1701783961 c:\users\student\documents\pd\podstawy programowania\lista4 zad4\trojkat.h
+	<iostream>
+	<math.h>
+
+1701784283 source:c:\users\student\documents\pd\podstawy programowania\lista4 zad4\main.cpp
+	"trojkat.h"
+
