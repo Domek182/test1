@@ -1,0 +1,104 @@
+public class FirstProject
+{
+    public static void Main(string[] args)
+    {
+        
+        
+        Console.WriteLine("Podaj liczbe: ");
+        int a = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Suma cyfr tej liczby wynosi: " + SumaCyfr(a));
+        int l = 0; 
+        for (int i = 1; i < 11; i++)
+        {
+            for (int j = 1; j<11; j++)
+            {
+                for (int k = 1; k < 11; k++)
+                {
+                    if ((Pitagoras(i, j, k) == true) && (k!=l))
+                    {
+                        l = k;
+                        Console.WriteLine("a=" + i +" b=" + j + " c=" + k);
+                    }
+                }
+
+            }
+        }
+        Console.WriteLine("Podaj liczbe potengowana: ");
+        double c = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Podaj potege tej liczby: ");
+        uint d = Convert.ToUInt32(Console.ReadLine());
+        Console.WriteLine("Podniesienie " + c + " do potengi " + d + " wynosi " + Potenga(c, d));
+        Console.WriteLine("Podaj wyraz ciagu Fibonacciego: ");
+        uint e = Convert.ToUInt32(Console.ReadLine());
+        Console.WriteLine(Fib(e));
+    }
+
+    static int SumaCyfr(int a)
+    {
+        int b = a;
+        int c = 0;
+        while ((b!=0))
+        {
+            c = c + (b % 10);
+            b = (b / 10);
+        }
+
+        return c;
+
+    }
+
+    static int Max(int a, int b)
+    {
+        if (a>b)
+        {
+            return a;
+        }
+        else
+        {
+            return b;
+        }
+            
+    }
+
+    static bool Pitagoras(int a, int b, int c)
+    {
+        if ((a * a) + (b * b) == (c * c))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    static double Potenga(double a, uint b)
+    {
+        if (b == 1)
+        {
+            return a;
+        }
+
+        if (b == 0)
+        {
+            return 1;
+        }
+
+        return (Potenga(a, (b - 1)) * Potenga (a, (b-2)));
+
+    }
+
+    static uint Fib(uint a)
+    {
+        if (a == 0)
+        {
+            return 0;
+        }
+
+        if (a == 1)
+        {
+            return 1;
+        }
+
+        return (Fib(a - 1) + Fib(a - 2));
+    }
+}
+
