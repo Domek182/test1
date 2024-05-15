@@ -1,104 +1,103 @@
-public class FirstProject
+using System.Security.Principal;
+
+public class zad_4
 {
     public static void Main(string[] args)
     {
-        
-        
-        Console.WriteLine("Podaj liczbe: ");
-        int a = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Suma cyfr tej liczby wynosi: " + SumaCyfr(a));
-        int l = 0; 
-        for (int i = 1; i < 11; i++)
+        Person person1 = new Person("Kamil","Kowalski","51030941636", "14.12.1999","man");
+        Student student1 = new Student("Dominik", "Kaczkowski", "03272997412", "21.03.2001","man","280000","Mechatronics");
+        Teacher teacher1 = new Teacher("Alicja", "Lis", "70110193387", "30.01.1983","woman","magister");
+        List<string> persons = new List<string>()
         {
-            for (int j = 1; j<11; j++)
-            {
-                for (int k = 1; k < 11; k++)
-                {
-                    if ((Pitagoras(i, j, k) == true) && (k!=l))
-                    {
-                        l = k;
-                        Console.WriteLine("a=" + i +" b=" + j + " c=" + k);
-                    }
-                }
+            {person1.name},
+            {person1.surname},
+            {person1.pesel},
+            {person1.birthdate},
+            {person1.gender},
 
-            }
-        }
-        Console.WriteLine("Podaj liczbe potengowana: ");
-        double c = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("Podaj potege tej liczby: ");
-        uint d = Convert.ToUInt32(Console.ReadLine());
-        Console.WriteLine("Podniesienie " + c + " do potengi " + d + " wynosi " + Potenga(c, d));
-        Console.WriteLine("Podaj wyraz ciagu Fibonacciego: ");
-        uint e = Convert.ToUInt32(Console.ReadLine());
-        Console.WriteLine(Fib(e));
-    }
-
-    static int SumaCyfr(int a)
-    {
-        int b = a;
-        int c = 0;
-        while ((b!=0))
+        };
+        List<string> students = new List<string>()
         {
-            c = c + (b % 10);
-            b = (b / 10);
-        }
+            {student1.name},
+            {student1.surname},
+            {student1.pesel},
+            {student1.birthdate},
+            {student1.gender},
+            {student1.id},
+            {student1.subject},
 
-        return c;
-
-    }
-
-    static int Max(int a, int b)
-    {
-        if (a>b)
+        };
+        List<string> teachers = new List<string>()
         {
-            return a;
-        }
-        else
-        {
-            return b;
-        }
+            {teacher1.name},
+            {teacher1.surname},
+            {teacher1.pesel},
+            {teacher1.birthdate},
+            {teacher1.gender},
+            {teacher1.title},
             
+
+
+        };
+        for (int i = 0; i < 5; i++)
+        {
+            Console.WriteLine(persons[i]);
+        }
+        Console.WriteLine();
+        for (int i = 0; i < 7; i++)
+        {
+            Console.WriteLine(students[i]);
+        }
+        Console.WriteLine();
+        for (int i = 0; i < 6; i++)
+        {
+            Console.WriteLine(teachers[i]);
+        }
+        
+        
+
     }
 
-    static bool Pitagoras(int a, int b, int c)
+    public class Person
     {
-        if ((a * a) + (b * b) == (c * c))
-        {
-            return true;
-        }
+        public string name;
+        public string surname;
+        public string pesel;
+        public string birthdate;
+        public string gender;
 
-        return false;
+        public Person(string n, string s, string p, string b, string g)
+        {
+            name = n;
+            surname = s;
+            pesel = p;
+            birthdate = b;
+            gender = g;
+        }
     }
 
-    static double Potenga(double a, uint b)
+    public class Student : Person
     {
-        if (b == 1)
+        public string id;
+        public string subject;
+        
+        public Student(string n, string s, string p, string b, string g, string i, string sub) : base(n, s, p, b, g)
         {
-            return a;
+            id = i;
+            subject = sub;
+
         }
-
-        if (b == 0)
-        {
-            return 1;
-        }
-
-        return (Potenga(a, (b - 1)) * Potenga (a, (b-2)));
-
     }
 
-    static uint Fib(uint a)
+    public class Teacher : Person
     {
-        if (a == 0)
-        {
-            return 0;
-        }
+        public string title;
 
-        if (a == 1)
+        public Teacher(string n, string s, string p, string b, string g, string t) : base(n, s, p, b, g)
         {
-            return 1;
+            title = t;
         }
-
-        return (Fib(a - 1) + Fib(a - 2));
     }
+    
 }
 
