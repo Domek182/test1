@@ -1,0 +1,88 @@
+public class zad_2
+{
+    public static void Main(string[] args)
+    {
+        Dog dog1 = new Dog();
+        Cat cat1 = new Cat();
+        Cow cow1 = new Cow();
+        Console.WriteLine("What sound does a dog make? ");
+        string d1 = Console.ReadLine();
+        Console.WriteLine("What sound does a cat make? ");
+        string c1 = Console.ReadLine();
+        Console.WriteLine("What sound does a cow make? ");
+        string co1 = Console.ReadLine();
+        Console.WriteLine("Dog" + " " + dog1.Sound(d1));
+        Console.WriteLine("Cat" + " " + cat1.Sound(c1));
+        Console.WriteLine("Cow" + " " + cow1.Sound(co1));
+        
+
+
+    }
+    abstract class Animal 
+    { 
+        public virtual string Describe() 
+        { 
+            return "Not much is known about this animal!"; 
+        }
+
+        public virtual string Sound(string s)
+        {
+            return "Not much is know about sound this animal makes";
+        }
+
+        public virtual string average_height()
+        {
+            return "Not much know is about this animal's average_height";
+        }
+    } 
+    class Dog : Animal 
+    {
+        public override string Describe()
+        {
+            return "Dog is a human best friend and follows his orders";
+        }
+
+        public override string Sound(string s)
+        {
+            return s;
+        }
+        public override string average_height()
+        {
+            return "Average height for a dog is 52 cm";
+        }
+        
+    }
+
+    class Cat : Animal
+    {
+        public override string Describe()
+        {
+            return "Cat is an animal that does not follow orders and does what it wants";
+        }
+        public override string Sound(string s)
+        {
+            return s;
+        }
+        public override string average_height()
+        {
+            return "Average height for a cat is 23 cm";
+        }
+    }
+
+    class Cow : Animal
+    {
+        public override string Describe()
+        {
+            return "Cow is an animal that is used for it's milk and meat";
+        }
+        public override string Sound(string s)
+        {
+            return s;
+        }
+        public override string average_height()
+        {
+            return "Average height for a cow is 135 cm";
+        }
+    }
+}
+

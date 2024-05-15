@@ -1,0 +1,48 @@
+using System.Net.Mime;
+
+public class Lab_10
+{
+    public static void Main(string[] args)
+    {
+        IOString string1 = new IOString();
+        string1.GetString("kajak");
+        string1.PrintString();
+        if (string1.IsPalindrome() == true)
+        {
+            Console.WriteLine("This word is a palindrome");
+        }
+        else
+        {
+            Console.WriteLine("This word is not a palindrome");
+        }
+    }
+
+    public class IOString
+    {
+        public string String;
+        public void GetString(string s)
+        {
+            String = s;
+        }
+
+        public void PrintString()
+        {
+            String = String.ToUpper();
+            Console.WriteLine(String);
+        }
+
+        public bool IsPalindrome()
+        {
+            int n = String.Length - 1;
+            for (int i = 0; i < n/2; i++)
+            {
+                if (String[i] != String[n - i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+}
