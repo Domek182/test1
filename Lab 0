@@ -1,0 +1,67 @@
+main
+
+#include <iostream>
+#include "Punkt.h"
+using namespace std;
+
+int main()
+{
+    Punkt2D A;
+    int x,y;
+    cout<<"Podaj wspolrzedna x\n";
+    cin>>x;
+    cout<<"Podaj wspolrzedna y\n";
+    cin>>y;
+    A.Utworz(x,y);
+    A.Odczytaj();
+
+}
+
+header
+
+
+#ifndef Punkt_h
+
+#define Punkt_h
+#include <iostream>
+using namespace std;
+
+class Punkt2D{
+private:
+    int x;
+    int y;
+public:
+    void Utworz (int x, int y);
+    void Odczytaj ();
+    void Wypisz ();
+};
+class Punkt3D{
+private:
+    int x;
+    int y;
+    int z;
+public:
+    void Utworz (int x, int y, int z);
+    void Odczytaj ();
+    void Wypisz ();
+};
+
+
+
+#endif // Punkt_h
+
+
+css
+
+#include "Punkt.h"
+#include <iostream>
+
+void Punkt2D::Utworz(int x1, int y1){
+x = x1;
+y = y1;
+};
+void Punkt2D::Odczytaj(){
+cout<<"["<<x<<","<<y<<"]";
+}
+void Punkt2D::Wypisz(){
+}
