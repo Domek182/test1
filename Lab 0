@@ -20,11 +20,12 @@ int main()
 header
 
 
-#ifndef Punkt_h
+#ifndef Wektor_h
 
-#define Punkt_h
+#define Wektor_h
 #include <iostream>
 using namespace std;
+
 
 class Punkt2D{
 private:
@@ -35,6 +36,7 @@ public:
     void Odczytaj ();
     void Wypisz ();
 };
+
 class Punkt3D{
 private:
     int x;
@@ -45,15 +47,27 @@ public:
     void Odczytaj ();
     void Wypisz ();
 };
+class Wektor3D{
+private:
+    int x;
+    int y;
+    int z;
+public:
+    void Utworz (Punkt3D P1, Punkt3D P2);
+    Wektor3D Przesuniecie (Wektor3D V, Punkt3D P);
+    Wektor3D Dodawanie (Wektor3D V1, Wektor3D V2);
+    Wektor3D Odejmowanie (Wektor3D V1, Wektor3D V2);
+    Wektor3D Iloczyn_Skalarny (Wektor3D V1, Wektor3D V2);
+    Wektor3D Iloczyn_Wektorowy (Wektor3D V1, Wektor3D V2);
+};
 
+#endif // Wektor_h
 
-
-#endif // Punkt_h
 
 
 css
 
-#include "Punkt.h"
+#include "Wektor.h"
 #include <iostream>
 
 void Punkt2D::Utworz(int x1, int y1){
@@ -64,4 +78,24 @@ void Punkt2D::Odczytaj(){
 cout<<"["<<x<<","<<y<<"]";
 }
 void Punkt2D::Wypisz(){
+}
+void Punkt3D::Odczytaj(){
+cout<<"["<<x<<","<<y<<"]";
+}
+void Punkt3D::Utworz(int x1, int y1, int z1){
+x = x1;
+y = y1;
+z = z1;
+}
+void Wektor3D::Utworz(Punkt3D P1, Punkt3D P2){
+x = P2.x-P1.x;
+y = P2.y-P1.y;
+z = P2.z-P1.z;
+}
+Wektor3D Wektor3D::Przesuniecie(Wektor3D V, Punkt3D P){
+Wektor3D W;
+W.x=V.x+P.x;
+W.y=V.y+P.y;
+W.z=V.z+P.z;
+return W;
 }
