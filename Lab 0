@@ -1,15 +1,21 @@
 main
 
 #include <iostream>
-#include "Punkt.h"
+#include "Punkt2D.h"
+#include "Punkt3D.h"
+#include "Wektor3D.h"
+
 using namespace std;
 
 int main()
 {
-    int x,y,x1,y1,z1,x2,y2,z2;
+    double x,y,x1,y1,z1,x2,y2,z2,z0,d;
     x2 = 2;
     y2 = -1;
     z2 = 2;
+    z0 = 3;
+    d = 3;
+
 
     cout<<"Podaj wspolrzedna x\n";
     cin>>x;
@@ -28,80 +34,118 @@ int main()
     Wektor3D U(x1,y1,z1);
     Wektor3D V(x2,y2,z2);
     U.Odczytaj();
+    Wektor3D U1 = U.Dodawanie(V);
+    U1.Odczytaj();
     V.Odczytaj();
-    Wektor3D W = U.Iloczyn_Wektorowy(U,V);
+    Wektor3D W = U.Iloczyn_Wektorowy(V);
     W.Odczytaj();
+    Punkt2D AV1 = V1.Rzutowanie(A,z0,d);
+    AV1.Wypisz();
 
 
 
 }
 
 
-header
+header Punkt 2D
 
 
-#ifndef Punkt_h
+#ifndef Punkt2D_h
 
-#define Punkt_h
+#define Punkt2D_h
 #include <iostream>
 using namespace std;
 
 
 class Punkt2D{
 private:
-    int x_;
-    int y_;
+    double x_;
+    double y_;
 public:
-    Punkt2D(int x, int y);
+    Punkt2D(double x, double y);
     void Odczytaj ();
     void Wypisz ();
 
 };
+
+
+
+
+#endif // Punkt2D_h
+
+
+header Punkt 3D
+#ifndef Punkt3D_h
+
+#define Punkt3D_h
+#include <iostream>
+#include "Punkt2D.h"
+#include "Wektor3D.h"
+using namespace std;
+
+class Wektor3D;
 
 class Punkt3D{
 private:
-    int x_;
-    int y_;
-    int z_;
+    double x_;
+    double y_;
+    double z_;
 public:
-    Punkt3D (int x, int y, int z) :  x_(x),  y_(y),  z_(z){}
+    Punkt3D (double x, double y, double z);
     void Odczytaj ();
     void Wypisz ();
-    int GetX();
-    int GetY();
-    int GetZ();
+    double GetX();
+    double GetY();
+    double GetZ();
+    Punkt3D Przesuniecie (Wektor3D V);
+    Punkt2D Rzutowanie (Punkt2D A, double z0, double d);
 };
+#endif // Punkt3D
+
+header Wektor3D
+#ifndef Wektor3D_h
+
+#define Wektor3D_h
+#include "Punkt3D.h"
+using namespace std;
+
+class Punkt3D;
+
 class Wektor3D{
 private:
-    int x_;
-    int y_;
-    int z_;
+    double x_;
+    double y_;
+    double z_;
 
 public:
-    int GetX();
-    int GetY();
-    int GetZ();
-    Wektor3D (int x, int y, int z);
+    double GetX();
+    double GetY();
+    double GetZ();
+    Wektor3D (double x, double y, double z);
     Wektor3D (Punkt3D A, Punkt3D B);
     void Odczytaj ();
-    Wektor3D Przesuniecie (Wektor3D V, Punkt3D P);
-    Wektor3D Dodawanie (Wektor3D V1, Wektor3D V2);
-    Wektor3D Odejmowanie (Wektor3D V1, Wektor3D V2);
-    Wektor3D Iloczyn_Skalarny (Wektor3D V1, Wektor3D V2);
-    Wektor3D Iloczyn_Wektorowy (Wektor3D V1, Wektor3D V2);
+    Wektor3D Dodawanie (Wektor3D V);
+    Wektor3D Odejmowanie (Wektor3D V);
+    double
+    Iloczyn_Skalarny (Wektor3D V);
+    Wektor3D Iloczyn_Wektorowy (Wektor3D V);
 };
 
-#endif // Wektor_h
+#endif // Wektor3D
 
 
 
 
-cpp
 
-#include "Punkt.h"
+
+
+
+cpp Punkt 2D
+
+#include "Punkt2D.h"
 #include <iostream>
 
-Punkt2D::Punkt2D(int x, int y): x_(x), y_(y){}
+Punkt2D::Punkt2D(double x, double y): x_(x), y_(y){}
 
 void Punkt2D::Odczytaj(){
 cout<<"["<<x_<<","<<y_<<"]\n";
@@ -110,47 +154,75 @@ void Punkt2D::Wypisz(){
 cout<<"Wspolrzedne tego punktu to ["<<x_<<","<<y_<<"]\n";
 }
 
+cpp Punkt 3D
+#include "Punkt3D.h"
+#include "Punkt2D.h"
+#include <iostream>
+
+Punkt3D::Punkt3D (double x, double y, double z) :  x_(x),  y_(y),  z_(z){}
 void Punkt3D::Odczytaj(){
 cout<<"["<<x_<<","<<y_<<","<<z_<<"]\n";
 }
-Punkt3D::GetX() {return x_;}
-Punkt3D::GetY() {return y_;}
-Punkt3D::GetZ() {return z_;}
+double Punkt3D::GetX() {return x_;}
+double Punkt3D::GetY() {return y_;}
+double Punkt3D::GetZ() {return z_;}
 
-Wektor3D::Wektor3D (int x, int y, int z) : x_(x),  y_(y),  z_(z){}
+Punkt3D Punkt3D::Przesuniecie(Wektor3D V){
+Punkt3D W(V.GetX()+x_,V.GetY()+y_,V.GetZ()+z_);
+return W;
+}
+
+Punkt2D Punkt3D::Rzutowanie (Punkt2D A, double z0, double d){
+if (z0-z_== 0){
+    cout<<"Nie mozna dzielic przez 0";
+    Punkt2D P(0,0);
+    return P;
+}
+else{
+Punkt2D P(((z0*x_)-(z_*d))/(z0*z_),(z0*y_)/(z0*z_));
+return P;
+}
+}
+
+cpp Wektor 3D
+
+#include "Wektor3D.h"
+#include <iostream>
+
+Wektor3D::Wektor3D (double x, double y, double z) : x_(x),  y_(y),  z_(z){}
 
 Wektor3D::Wektor3D (Punkt3D A, Punkt3D B) : x_(B.GetX()-A.GetX()),  y_(B.GetY()-A.GetY()),  z_(B.GetZ()-A.GetZ()){}
 
-Wektor3D::GetX() {return x_;}
-Wektor3D::GetY() {return y_;}
-Wektor3D::GetZ() {return z_;}
+double Wektor3D::GetX() {return x_;}
+double Wektor3D::GetY() {return y_;}
+double Wektor3D::GetZ() {return z_;}
 
 void Wektor3D::Odczytaj(){
 cout<<"["<<x_<<","<<y_<<","<<z_<<"]\n";
 }
 
-Wektor3D Wektor3D::Przesuniecie(Wektor3D V, Punkt3D P){
-Wektor3D W(V.GetX()+P.GetX(),V.GetY()+P.GetY(),V.GetZ()+P.GetZ());
+Wektor3D Wektor3D::Dodawanie (Wektor3D V){
+Wektor3D W(x_+V.x_, y_+V.y_,z_+V.z_);
 return W;
 }
 
-Wektor3D Wektor3D::Dodawanie (Wektor3D V1, Wektor3D V2){
-Wektor3D W(V1.GetX()+V2.GetX(),V1.GetY()+V2.GetY(),V1.GetZ()+V2.GetZ());
+Wektor3D Wektor3D::Odejmowanie (Wektor3D V){
+Wektor3D W(x_-V.x_,y_-V.y_,z_-V.z_);
 return W;
 }
 
-Wektor3D Wektor3D::Odejmowanie (Wektor3D V1, Wektor3D V2){
-Wektor3D W(V1.GetX()-V2.GetX(),V1.GetY()-V2.GetY(),V1.GetZ()-V2.GetZ());
+double Wektor3D::Iloczyn_Skalarny (Wektor3D V){
+return x_*V.x_+y_*V.y_+z_*V.z_;
+}
+
+Wektor3D Wektor3D::Iloczyn_Wektorowy (Wektor3D V){
+Wektor3D W(y_*V.z_-z_*V.y_,z_*V.x_-x_*V.z_,x_*V.y_-y_*V.x_);
 return W;
 }
 
-Wektor3D Wektor3D::Iloczyn_Skalarny (Wektor3D V1, Wektor3D V2){
-Wektor3D W(V1.GetX()*V2.GetX(),V1.GetY()*V2.GetY(),V1.GetZ()*V2.GetZ());
-return W;
-}
 
-Wektor3D Wektor3D::Iloczyn_Wektorowy (Wektor3D V1, Wektor3D V2){
-Wektor3D W(V1.GetY()*V2.GetZ()-V1.GetZ()*V2.GetY(),V1.GetZ()*V2.GetX()-V1.GetX()*V2.GetZ(),V1.GetX()*V2.GetY()-V1.GetY()*V2.GetX());
-return W;
-}
+
+
+
+
 
